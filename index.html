@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tynnie Mobile World — Phones, Gaming & More</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --cream: #FAF8F4;
+  --warm-white: #FFFEFB;
+  --stone: #E8E2D9;
+  --stone2: #D4CCBF;
+  --ink: #1A1714;
+  --ink2: #3D3830;
+  --muted: #8C857A;
+  --accent: #C17B3F;
+  --accent-light: #F0DFC4;
+  --accent-pale: #FBF4EA;
+  --green: #3D6B4F;
+  --green-pale: #EAF3EE;
+  --wa: #25D366;
+  --r: 16px;
+  --r-lg: 24px;
+  --r-xl: 36px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;}
+
+.blob-wrap{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.32;}
+.blob-1{width:600px;height:600px;background:#F5E6CC;top:-200px;right:-100px;animation:drift1 18s ease-in-out infinite;}
+.blob-2{width:500px;height:500px;background:#D8EAE0;bottom:20%;left:-150px;animation:drift2 22s ease-in-out infinite;}
+.blob-3{width:400px;height:400px;background:#E8DFFF;top:50%;right:10%;animation:drift3 16s ease-in-out infinite;}
+@keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,60px) scale(1.08)}}
+@keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-30px,40px) scale(1.05)}}
+@keyframes drift3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(20px,-50px) scale(1.1)}}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(250,248,244,0.85);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid rgba(180,170,155,0.25);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:66px;}
+.nav-logo{font-family:'Instrument Serif',serif;font-size:1.35rem;font-style:italic;color:var(--ink);text-decoration:none;}
+.nav-logo em{color:var(--accent);font-style:normal;}
+.nav-links{display:flex;gap:1.8rem;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.875rem;font-weight:400;transition:color 0.2s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-wa{display:flex;align-items:center;gap:7px;background:var(--wa);color:#fff;border:none;border-radius:40px;padding:9px 20px;font-size:0.84rem;font-weight:600;font-family:'Outfit',sans-serif;cursor:pointer;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 16px rgba(37,211,102,0.25);}
+.nav-wa:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(37,211,102,0.35);}
+.nav-wa svg{width:15px;height:15px;}
+
+.hero{position:relative;z-index:1;padding:6rem 5% 4rem;display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;align-items:center;min-height:88vh;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(193,123,63,0.1);border:1px solid rgba(193,123,63,0.2);border-radius:40px;padding:5px 16px 5px 8px;font-size:0.78rem;font-weight:500;color:var(--accent);letter-spacing:0.04em;margin-bottom:1.6rem;}
+.hero-eyebrow-dot{width:22px;height:22px;border-radius:50%;background:var(--accent-light);display:flex;align-items:center;justify-content:center;font-size:0.75rem;}
+.hero-eyebrow-dot::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.5)}}
+.hero h1{font-family:'Instrument Serif',serif;font-size:clamp(2.8rem,5vw,4.6rem);font-weight:400;line-height:1.06;letter-spacing:-0.03em;margin-bottom:1.5rem;color:var(--ink);}
+.hero h1 em{font-style:italic;color:var(--accent);}
+.hero-sub{font-size:1rem;font-weight:300;color:var(--muted);line-height:1.75;max-width:460px;margin-bottom:2.5rem;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+.btn-primary{background:var(--ink);color:var(--cream);border:none;border-radius:40px;padding:13px 28px;font-size:0.9rem;font-weight:500;font-family:'Outfit',sans-serif;cursor:pointer;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 20px rgba(26,23,20,0.15);}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(26,23,20,0.2);}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--stone2);border-radius:40px;padding:13px 24px;font-size:0.9rem;font-weight:400;font-family:'Outfit',sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:border-color 0.2s,background 0.2s;}
+.btn-ghost:hover{background:var(--stone);border-color:var(--stone2);}
+.btn-ghost svg{width:15px;height:15px;}
+
+.hero-visual{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.hero-feat-card{background:rgba(255,255,251,0.75);border:1px solid rgba(255,255,255,0.9);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:var(--r-lg);padding:1.4rem 1.1rem;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,0.05),inset 0 1px 0 rgba(255,255,255,0.8);transition:transform 0.3s,box-shadow 0.3s;cursor:default;}
+.hero-feat-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,0.09),inset 0 1px 0 rgba(255,255,255,0.9);}
+.hero-feat-card img{width:72px;height:72px;object-fit:contain;margin-bottom:0.7rem;border-radius:8px;}
+.feat-label{font-size:0.7rem;font-weight:600;color:var(--accent);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:2px;}
+.feat-name{font-size:0.88rem;font-weight:500;color:var(--ink);}
+.feat-sub{font-size:0.75rem;color:var(--muted);margin-top:2px;}
+
+.stats-bar{position:relative;z-index:1;background:rgba(255,255,251,0.65);border-top:1px solid var(--stone);border-bottom:1px solid var(--stone);backdrop-filter:blur(16px);padding:1.6rem 5%;display:flex;align-items:center;justify-content:space-around;flex-wrap:wrap;gap:1.2rem;}
+.stat-item{text-align:center;}
+.stat-num{font-family:'Instrument Serif',serif;font-size:1.9rem;font-weight:400;color:var(--ink);line-height:1;}
+.stat-label{font-size:0.76rem;color:var(--muted);font-weight:400;margin-top:3px;}
+.stat-div{width:1px;height:36px;background:var(--stone2);}
+
+section{padding:5.5rem 5%;position:relative;z-index:1;}
+.section-eyebrow{font-size:0.72rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.7rem;display:flex;align-items:center;gap:8px;}
+.section-eyebrow::before{content:'';display:block;width:18px;height:1px;background:var(--accent);}
+.section-title{font-family:'Instrument Serif',serif;font-size:clamp(1.9rem,3.2vw,2.8rem);font-weight:400;letter-spacing:-0.025em;line-height:1.15;margin-bottom:0.9rem;color:var(--ink);}
+.section-title em{font-style:italic;color:var(--accent);}
+.section-sub{color:var(--muted);max-width:500px;line-height:1.75;font-weight:300;margin-bottom:3rem;font-size:0.97rem;}
+
+/* CATEGORY TABS */
+.cat-section{background:var(--warm-white);}
+.brand-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:3rem;}
+.brand-tab{background:transparent;border:1px solid var(--stone2);border-radius:40px;padding:9px 22px;color:var(--muted);font-size:0.86rem;font-weight:400;cursor:pointer;transition:all 0.2s;font-family:'Outfit',sans-serif;display:flex;align-items:center;gap:7px;}
+.brand-tab:hover{border-color:var(--ink);color:var(--ink);}
+.brand-tab.active{background:var(--ink);border-color:var(--ink);color:var(--cream);font-weight:500;}
+.brand-tab img{width:18px;height:18px;object-fit:contain;filter:grayscale(1);}
+.brand-tab.active img{filter:grayscale(1) invert(1);}
+
+/* PRODUCT GRID */
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;}
+.product-card{background:var(--warm-white);border:1px solid var(--stone);border-radius:var(--r-lg);overflow:hidden;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);}
+.product-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,0.08);border-color:var(--stone2);}
+.product-img-wrap{aspect-ratio:1;background:var(--accent-pale);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:20px;}
+.product-img-wrap img{width:100%;height:100%;object-fit:contain;transition:transform 0.4s;}
+.product-card:hover .product-img-wrap img{transform:scale(1.06);}
+.product-badge{position:absolute;top:10px;left:10px;font-size:0.66rem;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:0.04em;}
+.badge-hot{background:var(--ink);color:var(--cream);}
+.badge-new{background:var(--green);color:#fff;}
+.badge-sale{background:#E05E3A;color:#fff;}
+.product-info{padding:1rem 1.15rem 1.2rem;}
+.product-series{font-size:0.68rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.09em;margin-bottom:4px;}
+.product-name{font-size:0.92rem;font-weight:500;color:var(--ink);margin-bottom:10px;line-height:1.3;}
+.product-bottom{display:flex;align-items:center;justify-content:space-between;}
+.product-price{font-family:'Instrument Serif',serif;font-size:1.12rem;color:var(--ink);}
+.product-wa-btn{background:var(--green-pale);color:var(--green);border:1px solid rgba(61,107,79,0.2);border-radius:20px;padding:7px 13px;font-size:0.76rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all 0.2s;text-decoration:none;font-family:'Outfit',sans-serif;}
+.product-wa-btn:hover{background:var(--wa);color:#fff;border-color:var(--wa);}
+.product-wa-btn svg{width:13px;height:13px;}
+
+/* SHOW MORE */
+.show-more-wrap{text-align:center;margin-top:2.5rem;}
+.show-more-btn{background:transparent;border:1px solid var(--stone2);border-radius:40px;padding:11px 28px;color:var(--ink2);font-size:0.88rem;font-weight:400;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;}
+.show-more-btn:hover{background:var(--stone);border-color:var(--stone2);}
+
+/* HOW IT WORKS */
+.how-section{background:var(--warm-white);}
+.steps-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+.steps-row::after{content:'';position:absolute;top:27px;left:12.5%;right:12.5%;height:1px;background:repeating-linear-gradient(90deg,var(--stone2) 0,var(--stone2) 6px,transparent 6px,transparent 14px);z-index:0;}
+.step-card{padding:0 1.3rem;text-align:center;position:relative;z-index:1;}
+.step-num{width:54px;height:54px;border-radius:50%;background:var(--warm-white);border:1.5px solid var(--stone2);display:flex;align-items:center;justify-content:center;margin:0 auto 1.4rem;font-family:'Instrument Serif',serif;font-size:1.25rem;color:var(--accent);box-shadow:0 4px 16px rgba(0,0,0,0.06);}
+.step-card h3{font-size:0.93rem;font-weight:600;color:var(--ink);margin-bottom:7px;}
+.step-card p{font-size:0.8rem;color:var(--muted);line-height:1.65;font-weight:300;}
+
+/* WA SECTION */
+.wa-section{background:var(--ink);color:var(--cream);padding:6.5rem 5%;text-align:center;position:relative;overflow:hidden;}
+.wa-section::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(37,211,102,0.1) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.wa-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(37,211,102,0.15);border:1px solid rgba(37,211,102,0.25);border-radius:40px;padding:7px 20px;font-size:0.82rem;color:var(--wa);font-weight:500;margin-bottom:2rem;}
+.wa-section h2{font-family:'Instrument Serif',serif;font-size:clamp(2rem,4vw,3.4rem);font-weight:400;letter-spacing:-0.025em;line-height:1.1;margin-bottom:1.2rem;}
+.wa-section h2 em{font-style:italic;color:var(--wa);}
+.wa-section p{color:rgba(250,248,244,0.6);font-weight:300;max-width:500px;margin:0 auto 1.6rem;line-height:1.75;}
+.wa-number-big{display:block;font-family:'Instrument Serif',serif;font-size:1.8rem;color:var(--wa);letter-spacing:-0.02em;margin-bottom:2.2rem;text-decoration:none;}
+.wa-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:3rem;}
+.wa-chip{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:30px;padding:6px 16px;font-size:0.82rem;color:rgba(250,248,244,0.7);display:flex;align-items:center;gap:6px;}
+.wa-chip::before{content:'✓';color:var(--wa);font-size:0.75rem;font-weight:700;}
+.btn-wa-big{display:inline-flex;align-items:center;gap:10px;background:var(--wa);color:#fff;border:none;border-radius:50px;padding:16px 38px;font-size:1rem;font-weight:600;font-family:'Outfit',sans-serif;cursor:pointer;text-decoration:none;box-shadow:0 8px 32px rgba(37,211,102,0.35);transition:transform 0.2s,box-shadow 0.2s;}
+.btn-wa-big:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(37,211,102,0.45);}
+.btn-wa-big svg{width:20px;height:20px;}
+
+/* TESTI */
+.testi-section{background:var(--cream);}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.testi-card{background:var(--warm-white);border:1px solid var(--stone);border-radius:var(--r-lg);padding:1.8rem 1.6rem;transition:box-shadow 0.3s;}
+.testi-card:hover{box-shadow:0 12px 36px rgba(0,0,0,0.07);}
+.testi-stars{font-size:0.88rem;letter-spacing:3px;color:var(--accent);margin-bottom:1rem;}
+.testi-text{font-family:'Instrument Serif',serif;font-style:italic;font-size:1rem;color:var(--ink2);line-height:1.7;margin-bottom:1.4rem;}
+.testi-author{display:flex;align-items:center;gap:12px;}
+.testi-av{width:38px;height:38px;border-radius:50%;background:var(--accent-pale);border:1px solid var(--stone);display:flex;align-items:center;justify-content:center;font-size:0.78rem;font-weight:600;color:var(--accent);font-family:'Outfit',sans-serif;flex-shrink:0;}
+.testi-name{font-size:0.86rem;font-weight:600;color:var(--ink);}
+.testi-loc{font-size:0.73rem;color:var(--muted);font-weight:300;}
+
+/* FOOTER */
+footer{background:var(--warm-white);border-top:1px solid var(--stone);padding:4rem 5% 2.5rem;position:relative;z-index:1;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}
+.footer-brand{font-family:'Instrument Serif',serif;font-size:1.7rem;font-style:italic;color:var(--ink);margin-bottom:0.8rem;}
+.footer-brand em{color:var(--accent);}
+.footer-tagline{font-size:0.86rem;color:var(--muted);line-height:1.7;max-width:260px;margin-bottom:0.8rem;font-weight:300;}
+.footer-contact{font-size:0.88rem;color:var(--ink2);margin-bottom:1.4rem;font-weight:500;}
+.footer-socials{display:flex;gap:8px;}
+.soc-btn{width:36px;height:36px;border-radius:10px;background:var(--cream);border:1px solid var(--stone);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--muted);transition:border-color 0.2s,color 0.2s,background 0.2s;}
+.soc-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-pale);}
+.soc-btn svg{width:15px;height:15px;}
+.footer-col h5{font-size:0.8rem;font-weight:600;color:var(--ink);margin-bottom:1.1rem;letter-spacing:0.03em;}
+.footer-col ul{list-style:none;}
+.footer-col ul li{margin-bottom:0.6rem;}
+.footer-col ul li a{font-size:0.82rem;color:var(--muted);text-decoration:none;font-weight:300;transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--accent);}
+.footer-bottom{border-top:1px solid var(--stone);padding-top:1.6rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-bottom p{font-size:0.76rem;color:var(--muted);font-weight:300;}
+.footer-bottom a{color:var(--accent);text-decoration:none;}
+
+.float-wa{position:fixed;bottom:26px;right:26px;z-index:200;width:54px;height:54px;border-radius:50%;background:var(--wa);color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 6px 24px rgba(37,211,102,0.4);transition:transform 0.25s,box-shadow 0.25s;}
+.float-wa:hover{transform:scale(1.1);box-shadow:0 12px 36px rgba(37,211,102,0.5);}
+.float-wa svg{width:26px;height:26px;}
+
+/* DELIVERY NOTICE */
+.delivery-notice{display:inline-flex;align-items:center;gap:8px;background:rgba(193,123,63,0.08);border:1px solid rgba(193,123,63,0.18);border-radius:30px;padding:6px 16px;font-size:0.8rem;color:var(--accent);font-weight:500;margin-bottom:2.5rem;}
+
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;min-height:auto;text-align:center;}
+  .hero-sub{margin:0 auto 2.2rem;}
+  .hero-actions{justify-content:center;}
+  .hero-visual{max-width:400px;margin:0 auto;}
+  .steps-row{grid-template-columns:1fr 1fr;gap:2rem;}
+  .steps-row::after{display:none;}
+  .testi-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .stat-div{display:none;}
+}
+@media(max-width:600px){
+  .nav-links{display:none;}
+  .footer-grid{grid-template-columns:1fr;}
+  .steps-row{grid-template-columns:1fr;}
+}
+.fade-up{opacity:0;transform:translateY(24px);animation:fadeUp 0.65s ease forwards;}
+.fade-up:nth-child(1){animation-delay:0.05s;}
+.fade-up:nth-child(2){animation-delay:0.15s;}
+.fade-up:nth-child(3){animation-delay:0.25s;}
+.fade-up:nth-child(4){animation-delay:0.35s;}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+
+<div class="blob-wrap" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<a href="https://wa.me/27717413387?text=Hi%20Tynnie!%20I%27d%20like%20to%20place%20an%20order." class="float-wa" aria-label="Order on WhatsApp" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<nav>
+  <a href="#" class="nav-logo">Tynnie <em>Mobile World</em></a>
+  <ul class="nav-links">
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+  </ul>
+  <a href="https://wa.me/27717413387" class="nav-wa" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    071 741 3387
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow fade-up">
+      <span class="hero-eyebrow-dot"></span>
+      Direct from China · Delivered across South Africa
+    </div>
+    <h1 class="fade-up">
+      Premium Phones<br>&amp; Gaming<br>
+      <em>at SA Prices</em>
+    </h1>
+    <p class="hero-sub fade-up">iPhones, Samsung Galaxy, PlayStation consoles &amp; more — sourced directly from China. Browse the full price list and order instantly on WhatsApp.</p>
+    <div class="hero-actions fade-up">
+      <a href="#shop" class="btn-primary">View Price List</a>
+      <a href="https://wa.me/27717413387?text=Hi%20Tynnie!%20Please%20send%20me%20your%20full%20catalogue." class="btn-ghost" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Get Full Catalogue
+      </a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-feat-card">
+      <img src="https://images.unsplash.com/photo-1605236453806-6ff36851218e?w=200&h=200&fit=crop&auto=format" alt="iPhone" loading="lazy"/>
+      <div class="feat-label">Apple</div>
+      <div class="feat-name">iPhones</div>
+      <div class="feat-sub">From R4,500</div>
+    </div>
+    <div class="hero-feat-card">
+      <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=200&h=200&fit=crop&auto=format" alt="Samsung" loading="lazy"/>
+      <div class="feat-label">Samsung</div>
+      <div class="feat-name">Galaxy Series</div>
+      <div class="feat-sub">From R5,200</div>
+    </div>
+    <div class="hero-feat-card">
+      <img src="https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=200&h=200&fit=crop&auto=format" alt="PlayStation" loading="lazy"/>
+      <div class="feat-label">Sony</div>
+      <div class="feat-name">PlayStation</div>
+      <div class="feat-sub">From R5,380</div>
+    </div>
+    <div class="hero-feat-card">
+      <img src="https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?w=200&h=200&fit=crop&auto=format" alt="Accessories" loading="lazy"/>
+      <div class="feat-label">Accessories</div>
+      <div class="feat-name">Cases, Earbuds</div>
+      <div class="feat-sub">From R149</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">200+</div><div class="stat-label">Products available</div></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><div class="stat-num">9 Provinces</div><div class="stat-label">Nationwide delivery</div></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><div class="stat-num">R300</div><div class="stat-label">Flat delivery fee</div></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><div class="stat-num">071 741 3387</div><div class="stat-label">WhatsApp to order</div></div>
+</div>
+
+<!-- SHOP -->
+<section id="shop" class="cat-section">
+  <div class="section-eyebrow">Full price list</div>
+  <h2 class="section-title">Browse &amp; <em>Order</em></h2>
+  <p class="section-sub">All prices in ZAR. Tap any product to instantly open WhatsApp with your order pre-filled.</p>
+  <div class="delivery-notice">🚚 Delivery fee: R300 nationwide</div>
+
+  <div class="brand-tabs">
+    <button class="brand-tab active" onclick="switchBrand('iphone',this)">📱 iPhone</button>
+    <button class="brand-tab" onclick="switchBrand('samsung_s',this)">📱 Samsung S Series</button>
+    <button class="brand-tab" onclick="switchBrand('samsung_note',this)">📱 Samsung Note</button>
+    <button class="brand-tab" onclick="switchBrand('samsung_z',this)">📱 Samsung Z Flip/Fold</button>
+    <button class="brand-tab" onclick="switchBrand('samsung_s26',this)">📱 Samsung S26</button>
+    <button class="brand-tab" onclick="switchBrand('playstation',this)">🎮 PlayStation</button>
+  </div>
+
+  <div class="product-grid" id="product-grid"></div>
+
+  <div class="show-more-wrap" id="show-more-wrap" style="display:none">
+    <button class="show-more-btn" onclick="showAll()">Show all products ↓</button>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="how-section">
+  <div class="section-eyebrow">Simple process</div>
+  <h2 class="section-title">Four Steps to <em>Your Door</em></h2>
+  <p class="section-sub">No complicated checkout — just WhatsApp us and we handle everything.</p>
+  <div class="steps-row">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h3>Browse the list</h3>
+      <p>Check our price list here or ask for the full catalogue on WhatsApp. Updated regularly.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h3>WhatsApp Us</h3>
+      <p>Tap any product's Order button — your message is pre-filled. Just hit send!</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h3>Confirm &amp; Pay</h3>
+      <p>We confirm availability and price in ZAR. Pay via EFT, SnapScan or Cash on Delivery.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <h3>Get Delivered</h3>
+      <p>We ship nationwide for R300. Track your order via WhatsApp every step of the way.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WA CTA -->
+<section class="wa-section">
+  <div class="wa-pill">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Direct WhatsApp ordering
+  </div>
+  <h2>Ready to Order?<br><em>Let's Chat.</em></h2>
+  <p>Send us a message and we'll respond with availability, delivery details — all in ZAR with no hidden fees.</p>
+  <a href="https://wa.me/27717413387" class="wa-number-big" target="_blank" rel="noopener">📲 071 741 3387</a>
+  <div class="wa-chips">
+    <div class="wa-chip">Fast WhatsApp replies</div>
+    <div class="wa-chip">Prices always in ZAR</div>
+    <div class="wa-chip">Full photo catalogue</div>
+    <div class="wa-chip">R300 flat delivery</div>
+    <div class="wa-chip">All 9 provinces</div>
+    <div class="wa-chip">Trusted since 2022</div>
+  </div>
+  <a href="https://wa.me/27717413387?text=Hi%20Tynnie!%20I%27d%20like%20to%20order%20a%20phone." class="btn-wa-big" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Start Ordering Now
+  </a>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="reviews" class="testi-section">
+  <div class="section-eyebrow">Customer love</div>
+  <h2 class="section-title">What SA Customers <em>Say</em></h2>
+  <p class="section-sub">Real feedback from real customers across South Africa.</p>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Got my iPhone 15 Pro for R12,900 — way cheaper than iStore. WhatsApp communication was quick and delivery took 4 days!"</p>
+      <div class="testi-author"><div class="testi-av">NK</div><div><div class="testi-name">Nandi K.</div><div class="testi-loc">Johannesburg, GP</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Ordered a Samsung S24 Ultra and a PS5 together. Tynnie kept me updated the whole time. Will definitely order again!"</p>
+      <div class="testi-author"><div class="testi-av">TM</div><div><div class="testi-name">Thabo M.</div><div class="testi-loc">Cape Town, WC</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"The Z Fold 5 arrived perfectly packaged. Price was unbeatable. Highly recommend Tynnie Mobile World to everyone!"</p>
+      <div class="testi-author"><div class="testi-av">ZN</div><div><div class="testi-name">Zanele N.</div><div class="testi-loc">Durban, KZN</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Tynnie <em>Mobile World</em></div>
+      <p class="footer-tagline">iPhones, Samsung, PlayStation &amp; more — sourced from China, delivered across South Africa.</p>
+      <p class="footer-contact">📞 071 741 3387 · Unathi Tynnie Dywili<br>Based in Hangzhou, China 🇨🇳 → SA 🇿🇦</p>
+      <div class="footer-socials">
+        <a href="https://www.tiktok.com/@tynnienattie" class="soc-btn" aria-label="TikTok" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.02a8.16 8.16 0 004.77 1.52V7.1a4.85 4.85 0 01-1-.41z"/></svg>
+        </a>
+        <a href="https://wa.me/27717413387" class="soc-btn" aria-label="WhatsApp" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>iPhones</h5>
+      <ul>
+        <li><a href="#shop">iPhone X / XS / XR</a></li>
+        <li><a href="#shop">iPhone 11 Series</a></li>
+        <li><a href="#shop">iPhone 12 Series</a></li>
+        <li><a href="#shop">iPhone 13 Series</a></li>
+        <li><a href="#shop">iPhone 14 Series</a></li>
+        <li><a href="#shop">iPhone 15 / 16 Series</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Samsung</h5>
+      <ul>
+        <li><a href="#shop">S Series (S8–S26)</a></li>
+        <li><a href="#shop">Note Series</a></li>
+        <li><a href="#shop">Z Flip Series</a></li>
+        <li><a href="#shop">Z Fold Series</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Gaming & Info</h5>
+      <ul>
+        <li><a href="#shop">PlayStation 4</a></li>
+        <li><a href="#shop">PlayStation 5</a></li>
+        <li><a href="#how">How to Order</a></li>
+        <li><a href="https://wa.me/27717413387" target="_blank">WhatsApp Us</a></li>
+        <li><a href="https://www.tiktok.com/@tynnienattie" target="_blank">TikTok</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Tynnie Mobile World · Unathi Tynnie Dywili · South Africa 🇿🇦</p>
+    <p>Order via <a href="https://wa.me/27717413387">WhatsApp</a> · Follow on <a href="https://www.tiktok.com/@tynnienattie" target="_blank">TikTok</a></p>
+  </div>
+</footer>
+
+<script>
+const WA = '27717413387';
+const WA_SVG = `<svg viewBox="0 0 24 24" fill="currentColor" style="width:12px;height:12px;flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
+
+// Real product images from Unsplash
+const IMG = {
+  iphone: 'https://images.unsplash.com/photo-1611791484670-ce19b801d192?w=400&h=400&fit=crop&auto=format',
+  iphone11: 'https://images.unsplash.com/photo-1574755393849-623942496936?w=400&h=400&fit=crop&auto=format',
+  iphone12: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=400&h=400&fit=crop&auto=format',
+  iphone13: 'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=400&h=400&fit=crop&auto=format',
+  iphone14: 'https://images.unsplash.com/photo-1663499482523-1c0c1bae4ce1?w=400&h=400&fit=crop&auto=format',
+  iphone15: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400&h=400&fit=crop&auto=format',
+  iphone16: 'https://images.unsplash.com/photo-1726861912929-12b5d27ff964?w=400&h=400&fit=crop&auto=format',
+  samsung: 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400&h=400&fit=crop&auto=format',
+  samsung2: 'https://images.unsplash.com/photo-1587840171670-8b850147754e?w=400&h=400&fit=crop&auto=format',
+  samsungfold: 'https://images.unsplash.com/photo-1625806786037-68d39ce58e5c?w=400&h=400&fit=crop&auto=format',
+  ps4: 'https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=400&h=400&fit=crop&auto=format',
+  ps5: 'https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=400&h=400&fit=crop&auto=format',
+};
+
+const BRANDS = {
+  iphone: [
+    {name:'iPhone X 64GB',price:4500,img:IMG.iphone,series:'iPhone X'},
+    {name:'iPhone X 256GB',price:4800,img:IMG.iphone,series:'iPhone X'},
+    {name:'iPhone XS Max 64GB',price:5100,img:IMG.iphone,series:'iPhone XS'},
+    {name:'iPhone XS Max 256GB',price:5300,img:IMG.iphone,series:'iPhone XS'},
+    {name:'iPhone XR 64GB',price:5100,img:IMG.iphone,series:'iPhone XR'},
+    {name:'iPhone XR 128GB',price:5300,img:IMG.iphone,series:'iPhone XR'},
+    {name:'iPhone XR 256GB',price:5600,img:IMG.iphone,series:'iPhone XR'},
+    {name:'iPhone 11 64GB',price:5800,img:IMG.iphone11,series:'iPhone 11'},
+    {name:'iPhone 11 128GB',price:6000,img:IMG.iphone11,series:'iPhone 11'},
+    {name:'iPhone 11 Pro 64GB',price:6500,img:IMG.iphone11,series:'iPhone 11 Pro'},
+    {name:'iPhone 11 Pro 256GB',price:6800,img:IMG.iphone11,series:'iPhone 11 Pro'},
+    {name:'iPhone 11 Pro Max 64GB',price:7000,img:IMG.iphone11,series:'iPhone 11 Pro Max'},
+    {name:'iPhone 11 Pro Max 256GB',price:7400,img:IMG.iphone11,series:'iPhone 11 Pro Max'},
+    {name:'iPhone 12 64GB',price:6300,img:IMG.iphone12,series:'iPhone 12'},
+    {name:'iPhone 12 128GB',price:6500,img:IMG.iphone12,series:'iPhone 12'},
+    {name:'iPhone 12 256GB',price:8400,img:IMG.iphone12,series:'iPhone 12'},
+    {name:'iPhone 12 Pro 128GB',price:7600,img:IMG.iphone12,series:'iPhone 12 Pro'},
+    {name:'iPhone 12 Pro 256GB',price:7800,img:IMG.iphone12,series:'iPhone 12 Pro'},
+    {name:'iPhone 12 Pro Max 128GB',price:7700,img:IMG.iphone12,series:'iPhone 12 Pro Max'},
+    {name:'iPhone 12 Pro Max 256GB',price:9000,img:IMG.iphone12,series:'iPhone 12 Pro Max'},
+    {name:'iPhone 13 128GB',price:7500,img:IMG.iphone13,series:'iPhone 13'},
+    {name:'iPhone 13 256GB',price:8000,img:IMG.iphone13,series:'iPhone 13'},
+    {name:'iPhone 13 Pro 128GB',price:9100,img:IMG.iphone13,series:'iPhone 13 Pro'},
+    {name:'iPhone 13 Pro 256GB',price:9550,img:IMG.iphone13,series:'iPhone 13 Pro'},
+    {name:'iPhone 13 Pro Max 128GB',price:9900,img:IMG.iphone13,series:'iPhone 13 Pro Max'},
+    {name:'iPhone 13 Pro Max 256GB',price:10600,img:IMG.iphone13,series:'iPhone 13 Pro Max'},
+    {name:'iPhone 13 Pro Max 512GB',price:11200,img:IMG.iphone13,series:'iPhone 13 Pro Max'},
+    {name:'iPhone 13 Pro Max 1TB',price:11800,img:IMG.iphone13,series:'iPhone 13 Pro Max'},
+    {name:'iPhone 14 128GB',price:8900,img:IMG.iphone14,series:'iPhone 14'},
+    {name:'iPhone 14 256GB',price:9400,img:IMG.iphone14,series:'iPhone 14'},
+    {name:'iPhone 14 Plus 128GB',price:9600,img:IMG.iphone14,series:'iPhone 14 Plus'},
+    {name:'iPhone 14 Plus 256GB',price:10000,img:IMG.iphone14,series:'iPhone 14 Plus'},
+    {name:'iPhone 14 Pro 128GB',price:10900,img:IMG.iphone14,series:'iPhone 14 Pro'},
+    {name:'iPhone 14 Pro 256GB',price:11300,img:IMG.iphone14,series:'iPhone 14 Pro'},
+    {name:'iPhone 14 Pro Max 128GB',price:12500,img:IMG.iphone14,series:'iPhone 14 Pro Max'},
+    {name:'iPhone 14 Pro Max 256GB',price:13000,img:IMG.iphone14,series:'iPhone 14 Pro Max'},
+    {name:'iPhone 15 128GB',price:11100,img:IMG.iphone15,series:'iPhone 15'},
+    {name:'iPhone 15 256GB',price:11800,img:IMG.iphone15,series:'iPhone 15'},
+    {name:'iPhone 15 Plus 128GB',price:11700,img:IMG.iphone15,series:'iPhone 15 Plus'},
+    {name:'iPhone 15 Plus 256GB',price:12400,img:IMG.iphone15,series:'iPhone 15 Plus'},
+    {name:'iPhone 15 Pro 128GB',price:12900,img:IMG.iphone15,series:'iPhone 15 Pro'},
+    {name:'iPhone 15 Pro 256GB',price:13800,img:IMG.iphone15,series:'iPhone 15 Pro'},
+    {name:'iPhone 15 Pro 512GB',price:14800,img:IMG.iphone15,series:'iPhone 15 Pro'},
+    {name:'iPhone 15 Pro Max 256GB',price:14600,img:IMG.iphone15,series:'iPhone 15 Pro Max'},
+    {name:'iPhone 15 Pro Max 512GB',price:15300,img:IMG.iphone15,series:'iPhone 15 Pro Max'},
+    {name:'iPhone 16 128GB',price:13300,img:IMG.iphone16,series:'iPhone 16'},
+    {name:'iPhone 16 Plus 128GB',price:14300,img:IMG.iphone16,series:'iPhone 16 Plus'},
+    {name:'iPhone 16 Plus 256GB',price:15100,img:IMG.iphone16,series:'iPhone 16 Plus'},
+    {name:'iPhone 16 Pro 128GB',price:16600,img:IMG.iphone16,series:'iPhone 16 Pro'},
+    {name:'iPhone 16 Pro 256GB',price:17300,img:IMG.iphone16,series:'iPhone 16 Pro'},
+    {name:'iPhone 16 Pro Max 256GB',price:19700,img:IMG.iphone16,series:'iPhone 16 Pro Max'},
+    {name:'iPhone 16 Pro Max 512GB',price:20700,img:IMG.iphone16,series:'iPhone 16 Pro Max'},
+  ],
+  samsung_s: [
+    {name:'S8 64GB',price:5200,img:IMG.samsung,series:'S Series'},
+    {name:'S8+ 64GB',price:5800,img:IMG.samsung,series:'S Series'},
+    {name:'S9 64GB',price:6000,img:IMG.samsung,series:'S Series'},
+    {name:'S9+ 64GB',price:6200,img:IMG.samsung,series:'S Series'},
+    {name:'S9+ 256GB',price:6400,img:IMG.samsung,series:'S Series'},
+    {name:'S10 128GB',price:6600,img:IMG.samsung,series:'S Series'},
+    {name:'S10+ 128GB',price:6800,img:IMG.samsung,series:'S Series'},
+    {name:'S20 128GB',price:6900,img:IMG.samsung2,series:'S Series'},
+    {name:'S20+ 128GB',price:7100,img:IMG.samsung2,series:'S Series'},
+    {name:'S20 Ultra 128GB',price:7400,img:IMG.samsung2,series:'S Series'},
+    {name:'S20 Ultra 256GB',price:7700,img:IMG.samsung2,series:'S Series'},
+    {name:'S20 FE 128GB',price:7500,img:IMG.samsung2,series:'S Series'},
+    {name:'S21 128GB',price:7900,img:IMG.samsung2,series:'S Series'},
+    {name:'S21+ 128GB',price:8300,img:IMG.samsung2,series:'S Series'},
+    {name:'S21 Ultra 128GB',price:8700,img:IMG.samsung2,series:'S Series'},
+    {name:'S21 Ultra 256GB',price:8900,img:IMG.samsung2,series:'S Series'},
+    {name:'S22 128GB',price:8800,img:IMG.samsung2,series:'S Series'},
+    {name:'S22 256GB',price:9000,img:IMG.samsung2,series:'S Series'},
+    {name:'S22+ 128GB',price:9300,img:IMG.samsung2,series:'S Series'},
+    {name:'S22 Ultra 128GB',price:9700,img:IMG.samsung2,series:'S Series'},
+    {name:'S22 Ultra 256GB',price:10100,img:IMG.samsung2,series:'S Series'},
+    {name:'S22 Ultra 512GB',price:10500,img:IMG.samsung2,series:'S Series'},
+    {name:'S23 128GB',price:10300,img:IMG.samsung2,series:'S Series'},
+    {name:'S23 256GB',price:11000,img:IMG.samsung2,series:'S Series'},
+    {name:'S23+ 256GB',price:11500,img:IMG.samsung2,series:'S Series'},
+    {name:'S23 Ultra 256GB',price:11700,img:IMG.samsung2,series:'S Series'},
+    {name:'S23 Ultra 512GB',price:12100,img:IMG.samsung2,series:'S Series'},
+    {name:'S24 256GB',price:10700,img:IMG.samsung2,series:'S Series'},
+    {name:'S24+ 256GB',price:10900,img:IMG.samsung2,series:'S Series'},
+    {name:'S24 Ultra 256GB',price:15000,img:IMG.samsung2,series:'S Series'},
+    {name:'S24 Ultra 512GB',price:15400,img:IMG.samsung2,series:'S Series'},
+    {name:'S25 128GB',price:11500,img:IMG.samsung2,series:'S Series'},
+    {name:'S25+ 256GB',price:14200,img:IMG.samsung2,series:'S Series'},
+    {name:'S25 Ultra 256GB',price:17400,img:IMG.samsung2,series:'S Series'},
+    {name:'S25 Ultra 512GB',price:18900,img:IMG.samsung2,series:'S Series'},
+  ],
+  samsung_note: [
+    {name:'Note 8 64GB',price:5500,img:IMG.samsung,series:'Note Series'},
+    {name:'Note 9 128GB',price:6000,img:IMG.samsung,series:'Note Series'},
+    {name:'Note 9 512GB',price:6400,img:IMG.samsung,series:'Note Series'},
+    {name:'Note 10 256GB',price:6700,img:IMG.samsung,series:'Note Series'},
+    {name:'Note 10+ 256GB',price:7100,img:IMG.samsung,series:'Note Series'},
+    {name:'Note 20 128GB',price:7300,img:IMG.samsung2,series:'Note Series'},
+    {name:'Note 20 256GB',price:7500,img:IMG.samsung2,series:'Note Series'},
+    {name:'Note 20 Ultra 128GB',price:8300,img:IMG.samsung2,series:'Note Series'},
+    {name:'Note 20 Ultra 256GB',price:8900,img:IMG.samsung2,series:'Note Series'},
+  ],
+  samsung_z: [
+    {name:'Z Flip 3 256GB',price:6300,img:IMG.samsungfold,series:'Z Flip'},
+    {name:'Z Flip 4 256GB',price:6900,img:IMG.samsungfold,series:'Z Flip'},
+    {name:'Z Flip 5 256GB',price:8200,img:IMG.samsungfold,series:'Z Flip'},
+    {name:'Z Fold 2 256GB',price:8400,img:IMG.samsungfold,series:'Z Fold'},
+    {name:'Z Fold 3 256GB',price:9800,img:IMG.samsungfold,series:'Z Fold'},
+    {name:'Z Fold 4 256GB',price:10000,img:IMG.samsungfold,series:'Z Fold'},
+    {name:'Z Fold 4 512GB',price:10400,img:IMG.samsungfold,series:'Z Fold'},
+    {name:'Z Fold 5 256GB',price:11200,img:IMG.samsungfold,series:'Z Fold'},
+    {name:'Z Fold 5 512GB',price:11900,img:IMG.samsungfold,series:'Z Fold'},
+    {name:'Z Fold 6 256GB',price:15700,img:IMG.samsungfold,series:'Z Fold'},
+    {name:'Z Fold 6 512GB',price:16200,img:IMG.samsungfold,series:'Z Fold'},
+  ],
+  samsung_s26: [
+    {name:'S26 256GB',price:17660,img:IMG.samsung2,series:'S26 Series'},
+    {name:'S26 512GB',price:18380,img:IMG.samsung2,series:'S26 Series'},
+    {name:'S26 Plus 256GB',price:20080,img:IMG.samsung2,series:'S26 Series'},
+    {name:'S26 Plus 512GB',price:21300,img:IMG.samsung2,series:'S26 Series'},
+    {name:'S26 Ultra 256GB',price:22750,img:IMG.samsung2,series:'S26 Series'},
+    {name:'S26 Ultra 512GB',price:23360,img:IMG.samsung2,series:'S26 Series'},
+    {name:'S26 Ultra 1TB',price:28590,img:IMG.samsung2,series:'S26 Series'},
+  ],
+  playstation: [
+    {name:'PS4 500GB',price:5380,img:IMG.ps4,series:'PlayStation 4'},
+    {name:'PS4 Slim 500GB',price:5560,img:IMG.ps4,series:'PlayStation 4'},
+    {name:'PS4 1TB',price:5760,img:IMG.ps4,series:'PlayStation 4'},
+    {name:'PS4 Slim 1TB',price:5940,img:IMG.ps4,series:'PlayStation 4'},
+    {name:'PS4 Pro 1TB',price:6580,img:IMG.ps4,series:'PlayStation 4'},
+    {name:'PS4 Controller',price:460,img:IMG.ps4,series:'PlayStation 4'},
+    {name:'PS4 500GB Jailbreak (10 games)',price:5810,img:IMG.ps4,series:'PS4 Jailbreak'},
+    {name:'PS4 1TB Jailbreak (23 games)',price:6150,img:IMG.ps4,series:'PS4 Jailbreak'},
+    {name:'PS4 Slim 500GB Jailbreak (10 games)',price:6150,img:IMG.ps4,series:'PS4 Jailbreak'},
+    {name:'PS4 Slim 1TB Jailbreak (23 games)',price:6530,img:IMG.ps4,series:'PS4 Jailbreak'},
+    {name:'PS4 Pro 1TB Jailbreak (23 games)',price:7090,img:IMG.ps4,series:'PS4 Jailbreak'},
+    {name:'PS5 Digital Version',price:8620,img:IMG.ps5,series:'PlayStation 5'},
+    {name:'PS5 Disc Version',price:9970,img:IMG.ps5,series:'PlayStation 5'},
+    {name:'PS5 Slim Digital Version',price:10230,img:IMG.ps5,series:'PlayStation 5'},
+    {name:'PS5 Slim Disc Version',price:11500,img:IMG.ps5,series:'PlayStation 5'},
+    {name:'PS5 Controller',price:1090,img:IMG.ps5,series:'PlayStation 5'},
+  ],
+};
+
+const PAGE_SIZE = 12;
+let currentBrand = 'iphone';
+let showingAll = false;
+
+function waLink(name, price) {
+  return `https://wa.me/${WA}?text=${encodeURIComponent(`Hi Tynnie! I'd like to order: ${name} — R${price.toLocaleString()}. Please confirm availability & delivery details.`)}`;
+}
+
+function cardHTML(p) {
+  const isNew = p.price > 13000;
+  const badge = isNew ? '<span class="product-badge badge-new">New</span>' : '';
+  return `
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'"/>
+        ${badge}
+      </div>
+      <div class="product-info">
+        <div class="product-series">${p.series}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-bottom">
+          <div class="product-price">R${p.price.toLocaleString()}</div>
+          <a href="${waLink(p.name, p.price)}" class="product-wa-btn" target="_blank" rel="noopener">
+            ${WA_SVG} Order
+          </a>
+        </div>
+      </div>
+    </div>`;
+}
+
+function switchBrand(brand, btn) {
+  currentBrand = brand;
+  showingAll = false;
+  document.querySelectorAll('.brand-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGrid();
+}
+
+function renderGrid() {
+  const all = BRANDS[currentBrand];
+  const grid = document.getElementById('product-grid');
+  const showMoreWrap = document.getElementById('show-more-wrap');
+  const toShow = showingAll ? all : all.slice(0, PAGE_SIZE);
+  grid.innerHTML = toShow.map(cardHTML).join('');
+  showMoreWrap.style.display = (!showingAll && all.length > PAGE_SIZE) ? 'block' : 'none';
+  const btn = showMoreWrap.querySelector('button');
+  if(btn) btn.textContent = `Show all ${all.length} products ↓`;
+}
+
+function showAll() {
+  showingAll = true;
+  renderGrid();
+}
+
+renderGrid();
+</script>
+</body>
+</html>
